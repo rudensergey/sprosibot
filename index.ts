@@ -1,6 +1,13 @@
-const { Telegraf } = require("telegraf");
+import {Telegraf} from "telegraf";
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const {BOT_TOKEN} = process.env;
+
+if(!BOT_TOKEN) {
+  console.error("BOT_TOKEN is not defined in enviroment");
+  process.exit();
+}
+
+const bot = new Telegraf(BOT_TOKEN);
 bot.start((ctx) => ctx.reply("Welcome"));
 bot.help((ctx) => ctx.reply("Send me a sticker"));
 bot.on("sticker", (ctx) => ctx.reply("👍"));
