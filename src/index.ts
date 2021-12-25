@@ -1,4 +1,10 @@
-const { Telegraf } = require("telegraf");
+import { main } from "./db";
+import { config } from "dotenv";
+import { Telegraf } from "telegraf";
+
+config();
+
+main().catch(console.error);
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.start((ctx) => ctx.reply("Welcome"));
