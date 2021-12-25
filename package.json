@@ -1,0 +1,25 @@
+{
+  "name": "sprasibot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rudensergey/sprosibot.git"
+  },
+  "author": "baitun / rudensergey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rudensergey/sprosibot/issues"
+  },
+  "homepage": "https://github.com/rudensergey/sprosibot#readme",
+  "dependencies": {
+    "i": "^0.3.7",
+    "mongodb": "^4.2.2",
+    "npm": "^8.3.0",
+    "typescript": "^4.5.4"
+  }
+}
