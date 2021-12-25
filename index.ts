@@ -1,5 +1,5 @@
 import { Telegraf } from "telegraf";
-require("dotenv");
+require("dotenv").config();
 
 const { BOT_TOKEN } = process.env;
 
