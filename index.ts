@@ -1,8 +1,9 @@
-import {Telegraf} from "telegraf";
+import { Telegraf } from "telegraf";
+require("dotenv");
 
-const {BOT_TOKEN} = process.env;
+const { BOT_TOKEN } = process.env;
 
-if(!BOT_TOKEN) {
+if (!BOT_TOKEN) {
   console.error("BOT_TOKEN is not defined in enviroment");
   process.exit();
 }
