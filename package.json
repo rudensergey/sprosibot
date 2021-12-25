@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rudensergey/sprosibot#readme",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "i": "^0.3.7",
     "mongodb": "^4.2.2",
     "npm": "^8.3.0",
