@@ -25,7 +25,7 @@ export class MongoAPI {
           res(true);
         })
         .catch((error) => {
-          this.log(`Error in connection: ${error}`);
+          this.logError(`Error in connection: ${error}`);
           res(false);
         });
     });
@@ -36,7 +36,7 @@ export class MongoAPI {
 
     return new Promise((res) => {
       if (!this._initialized) {
-        this.log("Data base is not connected!");
+        this.logError("Data base is not connected!");
         res(false);
       }
 
@@ -46,12 +46,19 @@ export class MongoAPI {
           res(true);
         },
         (error: string) => {
-          this.log(`Error while adding question: ${error}`);
+          this.logError(`Error while adding question: ${error}`);
           res(false);
         }
       );
     });
   }
 
-  log = (test: string) => `MongoAPI: ${test}`;
+  // addUser
+
+  // respondQuestion
+
+  // getQuestions
+
+  log = (test: string) => console.log("\x1b[36m%s\x1b[0m", `MongoAPI: ${test}`);
+  logError = (test: string) => console.log("\x1b[31m%s\x1b[0m", `MongoAPI: ${test}`);
 }

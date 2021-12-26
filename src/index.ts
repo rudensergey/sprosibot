@@ -25,6 +25,11 @@ function runBot() {
   bot.help((ctx) => ctx.reply("Send me a sticker"));
   bot.on("text", (ctx) => {
     console.log(ctx.update);
+
+    if (ctx.update.message.from.username) {
+      api.addQuestion(ctx.update.message.from.username, "baitun", ctx.update.message.text);
+    }
+
     ctx.replyWithChatAction("typing");
     ctx.replyWithPhoto(`https://cataas.com/cat/says/${encodeURI(ctx.message.text)}`, keyboard);
   });
