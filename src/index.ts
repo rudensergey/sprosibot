@@ -14,24 +14,25 @@ if (!BOT_TOKEN) {
 }
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.button.url("❤️", "http://telegraf.js.org"),
-  Markup.button.callback("Delete", "delete"),
+  Markup.button.callback("Ответить ↩️", "answer"),
+  Markup.button.callback("Скачать ⬇️", "download"),
 ]);
 
 const bot = new Telegraf(BOT_TOKEN);
-bot.start((ctx) => ctx.reply("Welcome"));
+bot.start((ctx) => ctx.reply(`Deep link payload: ${ctx.startPayload}`))
 bot.help((ctx) => ctx.reply("Send me a sticker"));
-bot.on("sticker", (ctx) => ctx.reply("👍"));
-bot.hears("hi", (ctx) => ctx.reply("Hey there"));
-bot.on("message", (ctx) => {
+bot.on("text", (ctx) => {
   console.log(ctx.update);
   ctx.replyWithChatAction("typing");
-  setTimeout(() => {
-    ctx.telegram.sendCopy(ctx.message.chat.id, ctx.message, keyboard);
-    ctx.replyWithPhoto("https://picsum.photos/200/300/");
-  }, 2000);
+  ctx.replyWithPhoto(`https://cataas.com/cat/says/${encodeURI(ctx.message.text)}`, keyboard);
 });
-bot.launch();
+bot.action('answer', (ctx)=>{
+  ctx.reply("Напиши твой ответ:");
+})
+
+bot.launch().then(()=>{
+  console.log('bot started');
+});
 
 // Enable graceful stop
 process.once("SIGINT", () => bot.stop("SIGINT"));
