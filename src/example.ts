@@ -12,7 +12,7 @@ export function apiExample(api: MongoAPI) {
     .then((res) => {
       if (!res || !res.length) return;
 
-      // 3. Make a responces
+      // 3. Make responces
       api
         .responseQuestion(res[0]._id, "I am 26 years old")
         .then(() => api.responseQuestion(res[2]._id, "Nothing"))
