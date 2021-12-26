@@ -1,22 +1,25 @@
-import { main } from "./db";
 import { config } from "dotenv";
 import { Telegraf, Markup } from "telegraf";
+import { initializeMongoDB } from "./db";
 
+// dotenv
 config();
 
-const { BOT_TOKEN, MONGO_DB_USER, MONGO_DB_PASSWORD } = process.env;
+// env
+const { BOT_TOKEN, MONGO_DB_USER, MONGO_DB_PASSWORD, MONGO_DB_CLUSTER } = process.env;
 
-main(MONGO_DB_USER, MONGO_DB_PASSWORD).catch(console.error);
+// database
+const api = initializeMongoDB(MONGO_DB_USER, MONGO_DB_PASSWORD, MONGO_DB_CLUSTER).catch((error) => {
+  console.log(error);
+});
 
+// bot api
 if (!BOT_TOKEN) {
   console.error("BOT_TOKEN is not defined in enviroment");
   process.exit();
 }
 
-const keyboard = Markup.inlineKeyboard([
-  Markup.button.url("❤️", "http://telegraf.js.org"),
-  Markup.button.callback("Delete", "delete"),
-]);
+const keyboard = Markup.inlineKeyboard([Markup.button.url("❤️", "http://telegraf.js.org"), Markup.button.callback("Delete", "delete")]);
 
 const bot = new Telegraf(BOT_TOKEN);
 bot.start((ctx) => ctx.reply("Welcome"));
