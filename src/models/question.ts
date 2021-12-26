@@ -1,5 +1,4 @@
 import { Schema } from "mongoose";
-import { userSchema } from "./user";
 
 export const questionSchema = new Schema({
   asker: { type: String },

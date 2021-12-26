@@ -1,12 +1,57 @@
-import { connect } from "mongoose";
+import { connect, model } from "mongoose";
+import { questionSchema } from "./models/question";
 
-class MongoAPI {
-  constructor() {}
-}
+export type Nullable<T> = T | null;
 
-export async function initializeMongoDB(user: any, password: any, cluster: any) {
-  return connect(`mongodb+srv://${user}:${password}@${cluster}`).then(() => {
-    console.log("Database connected!");
-    return new MongoAPI();
-  });
+export class MongoAPI {
+  private _user: string;
+  private _cluster: string;
+  private _password: string;
+  private _initialized: boolean;
+
+  constructor(user: any, password: any, cluster: any) {
+    this._user = user;
+    this._cluster = cluster;
+    this._password = password;
+    this._initialized = false;
+  }
+
+  connectMongoDB = () =>
+    new Promise((res) => {
+      connect(`mongodb+srv://${this._user}:${this._password}@${this._cluster}`)
+        .then(() => {
+          this.log("Database connected!");
+          this._initialized = true;
+          res(true);
+        })
+        .catch((error) => {
+          this.log(`Error in connection: ${error}`);
+          res(false);
+        });
+    });
+
+  addQuestion(asker: string, responder: string, question: string) {
+    const questionModel = model("Question", questionSchema);
+    const newQuestion = new questionModel({ asker, responder, question });
+
+    return new Promise((res) => {
+      if (!this._initialized) {
+        this.log("Data base is not connected!");
+        res(false);
+      }
+
+      newQuestion.save().then(
+        () => {
+          this.log(`Successfully added new question! ${asker} => ${responder}`);
+          res(true);
+        },
+        (error: string) => {
+          this.log(`Error while adding question: ${error}`);
+          res(false);
+        }
+      );
+    });
+  }
+
+  log = (test: string) => `MongoAPI: ${test}`;
 }
