@@ -1,8 +1,10 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
-export const questionSchema = new Schema({
-  asker: { type: String },
-  responder: { type: String },
-  question: { type: String },
-  answer: { type: String || null },
+const questionSchema = new Schema({
+  asker: { type: String, unique: false },
+  responder: { type: String, unique: false },
+  question: { type: String, unique: false },
+  answer: { type: String, sparse: true },
 });
+
+export const questionModel = model("Question", questionSchema);

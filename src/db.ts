@@ -1,5 +1,5 @@
-import { connect, model } from "mongoose";
-import { questionSchema } from "./models/question";
+import { connect } from "mongoose";
+import { questionModel } from "./models/question";
 
 export type Nullable<T> = T | null;
 
@@ -31,7 +31,6 @@ export class MongoAPI {
     });
 
   addQuestion(asker: string, responder: string, question: string) {
-    const questionModel = model("Question", questionSchema);
     const newQuestion = new questionModel({ asker, responder, question });
 
     return new Promise((res) => {
@@ -52,8 +51,6 @@ export class MongoAPI {
       );
     });
   }
-
-  // addUser
 
   // respondQuestion
 
