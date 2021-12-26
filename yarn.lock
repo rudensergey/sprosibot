@@ -1661,11 +1661,6 @@ function-bind@^1.1.1:
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
 
-g@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/g/-/g-2.0.1.tgz#0b5963ebd0ca70e3bc8c6766934a021821c8b857"
-  integrity sha1-C1lj69DKcOO8jGdmk0oCGCHIuFc=
-
 get-caller-file@^2.0.1, get-caller-file@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
@@ -1936,11 +1931,6 @@ human-signals@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
-
-i@^0.3.7:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/i/-/i-0.3.7.tgz#2a7437a923d59c14b17243dc63a549af24d85799"
-  integrity sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==
 
 iconv-lite@0.4.24:
   version "0.4.24"
