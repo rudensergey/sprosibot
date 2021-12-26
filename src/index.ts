@@ -4,9 +4,9 @@ import { Telegraf, Markup } from "telegraf";
 
 config();
 
-main().catch(console.error);
+const { BOT_TOKEN, MONGO_DB_USER, MONGO_DB_PASSWORD } = process.env;
 
-const { BOT_TOKEN } = process.env;
+main(MONGO_DB_USER, MONGO_DB_PASSWORD).catch(console.error);
 
 if (!BOT_TOKEN) {
   console.error("BOT_TOKEN is not defined in enviroment");

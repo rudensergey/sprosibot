@@ -1,11 +1,11 @@
 import { MongoClient } from "mongodb";
 
-export async function main() {
+export async function main(user: any, password: any) {
   /**
    * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
    * See https://docs.mongodb.com/drivers/node/ for more details
    */
-  const uri = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.hguqq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+  const uri = `mongodb+srv://${user}:${password}@cluster0.hguqq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
   /**
    * The Mongo Client you will use to interact with your database
@@ -19,7 +19,6 @@ export async function main() {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    console.log("FINALLY");
     // Make the appropriate DB calls
   } finally {
     // Close the connection to the MongoDB cluster
