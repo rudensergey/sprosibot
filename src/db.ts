@@ -1,5 +1,6 @@
+import { ObjectId } from "mongodb";
 import { connect } from "mongoose";
-import { questionModel } from "./models/question";
+import { IQuestion, questionModel } from "./models/question";
 
 export type Nullable<T> = T | null;
 
@@ -16,8 +17,8 @@ export class MongoAPI {
     this._initialized = false;
   }
 
-  connectMongoDB = () =>
-    new Promise((res) => {
+  connectMongoDB(): Promise<boolean> {
+    return new Promise((res) => {
       connect(`mongodb+srv://${this._user}:${this._password}@${this._cluster}`)
         .then(() => {
           this.log("Database connected!");
@@ -29,19 +30,19 @@ export class MongoAPI {
           res(false);
         });
     });
+  }
 
-  addQuestion(asker: string, responder: string, question: string) {
-    const newQuestion = new questionModel({ asker, responder, question });
-
+  addQuestion(asker: string, responder: string, question: string): Promise<boolean> {
     return new Promise((res) => {
       if (!this._initialized) {
         this.logError("Data base is not connected!");
         res(false);
       }
 
+      const newQuestion = new questionModel({ asker, responder, question });
       newQuestion.save().then(
         () => {
-          this.log(`Successfully added new question! ${asker} => ${responder}`);
+          this.log(`Question! ${asker} => ${responder} ${question.slice(0, 20)}`);
           res(true);
         },
         (error: string) => {
@@ -52,9 +53,52 @@ export class MongoAPI {
     });
   }
 
-  // respondQuestion
+  responseQuestion(id: ObjectId, answer: string): Promise<boolean> {
+    return new Promise((res) => {
+      if (!this._initialized) {
+        this.logError("Data base is not connected!");
+        res(false);
+      }
 
-  // getQuestions
+      return questionModel
+        .findById(id)
+        .then((data) => Object.assign(data, { answer }))
+        .then((model) => model.save())
+        .then(() => {
+          this.log(`Answer added! ${answer.slice(0, 30)}`);
+          res(true);
+        })
+        .catch((error) => {
+          this.logError(`Cannot add the answer: ${error}`);
+          res(false);
+        });
+    });
+  }
+
+  getQuestions(username: string): Promise<Nullable<IQuestion[]>> {
+    return new Promise((res) => {
+      if (!this._initialized) {
+        this.logError("Data base is not connected!");
+        res(null);
+      }
+
+      return questionModel
+        .find({ responder: username })
+        .then((data: IQuestion[]) => {
+          if (data.length) {
+            this.log(`Recieved ${data.length} qestion for ${username}`);
+            return res(data);
+          }
+
+          this.log("No questions");
+          res([]);
+        })
+        .catch((error) => {
+          this.logError(`Error during the accessing question for user ${username}: ${error}`);
+          res(null);
+        });
+    });
+  }
 
   log = (test: string) => console.log("\x1b[36m%s\x1b[0m", `MongoAPI: ${test}`);
   logError = (test: string) => console.log("\x1b[31m%s\x1b[0m", `MongoAPI: ${test}`);

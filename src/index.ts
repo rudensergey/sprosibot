@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 import { Telegraf, Markup } from "telegraf";
-import { MongoAPI, Nullable } from "./db";
+import { MongoAPI } from "./db";
+import { apiExample } from "./example";
 
 // dotenv
 config();
@@ -26,9 +27,7 @@ function runBot() {
   bot.on("text", (ctx) => {
     console.log(ctx.update);
 
-    if (ctx.update.message.from.username) {
-      api.addQuestion(ctx.update.message.from.username, "baitun", ctx.update.message.text);
-    }
+    apiExample(api);
 
     ctx.replyWithChatAction("typing");
     ctx.replyWithPhoto(`https://cataas.com/cat/says/${encodeURI(ctx.message.text)}`, keyboard);
